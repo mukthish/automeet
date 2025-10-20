@@ -1,0 +1,21 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Frontend Part of the project",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "bms",
+  "license": "ISC",
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "react": "^19.2.0",
+    "react-big-calendar": "^1.19.4",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^6.30.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  }
+}

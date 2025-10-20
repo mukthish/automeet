@@ -1,0 +1,44 @@
+firebase-> 
+signup:
+	email+ password
+login:
+	email+password
+
+user:   
+	user_id:  string
+	name: string
+	company:	string
+	email: string 
+	pwd: string
+	role: string
+	pfp: string
+	meeting_records: (array) [
+				meeting_id: string
+				start_time: time_stamp
+				end_time: time_stamp
+			]
+	calander :	[
+				meetings: 	{
+							meeting_id:
+						}
+			]
+
+meetings:
+	meeting_id: string
+	creator: user
+	meeting_type: dropdown (quartery review, project update, sales pitch, brainstorm, client support, )
+	importance/priority: dropdown (1-10) 
+	start_time: time_stamp
+	end_time: DD/MM/YYYY HH:MM:SS time_stamp
+	Agenda/title: string
+	meeting link: string
+	participants: (array)
+			[
+				user_ids (obj){
+						participating : bool
+						prob: float -> >0.75 (green)
+						participated: bool
+					}
+				
+			]
+	
