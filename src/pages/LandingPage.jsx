@@ -24,7 +24,7 @@ export default function LandingPage() {
       </button>
 
       <button
-        onClick={() => navigate("/login")}
+        onClick={() => navigate("/signup")}
         style={{
           margin: "10px",
           padding: "10px 20px",
