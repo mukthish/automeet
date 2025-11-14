@@ -79,62 +79,57 @@ const EventComponent = ({ event }) => {
       }, 0) / event.participants.length
     : null;
 
-  // Determine color based on probability
-  const getProbabilityColor = (prob) => {
-    if (prob >= 0.7) return '#28a745'; // Green - high probability
-    if (prob >= 0.4) return '#ffc107'; // Yellow - medium probability
-    return '#dc3545'; // Red - low probability
-  };
-
   return (
     <div style={{
       fontSize: "0.85em",
-      lineHeight: "1.2",
+      lineHeight: "1.3",
       overflow: "hidden",
       height: "100%",
       display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "flex-start"
+      flexDirection: "column",
+      padding: "3px",
+      gap: "2px"
     }}>
+      {/* Meeting Title */}
       <div style={{
-        flex: 1,
+        fontWeight: "700",
+        fontSize: "0.95em",
+        whiteSpace: "nowrap",
         overflow: "hidden",
-        display: "flex",
-        flexDirection: "column"
+        textOverflow: "ellipsis",
+        color: "#ffffff"
       }}>
+        {event.title}
+      </div>
+
+      {/* Participants */}
+      {participantCount > 0 && (
         <div style={{
+          fontSize: "0.8em",
           fontWeight: "600",
+          color: "#ffffff",
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis"
         }}>
-          {event.title}
+          👥 {hasValidNames ? displayNames : `${participantCount} participant${participantCount !== 1 ? 's' : ''}`}
+          {hasValidNames && participantNames.length > 3 && ` +${participantNames.length - 3}`}
         </div>
-        {participantCount > 0 && (
-          <div style={{
-            fontSize: "0.85em",
-            opacity: 0.85,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            marginTop: "2px"
-          }}>
-            👥 {hasValidNames ? displayNames : `${participantCount} participant${participantCount !== 1 ? 's' : ''}`}
-            {hasValidNames && participantNames.length > 3 && ` +${participantNames.length - 3}`}
-          </div>
-        )}
-      </div>
+      )}
+
+      {/* Probability */}
       {meetingProbability !== null && (
         <div style={{
           fontSize: "0.75em",
           fontWeight: "700",
-          color: getProbabilityColor(meetingProbability),
-          marginLeft: "6px",
-          whiteSpace: "nowrap",
-          flexShrink: 0
+          color: "#ffffff",
+          backgroundColor: "rgba(0,0,0,0.3)",
+          padding: "1px 4px",
+          borderRadius: "3px",
+          width: "fit-content",
+          whiteSpace: "nowrap"
         }}>
-          {Math.round(meetingProbability * 100)}%
+          Probability: {Math.round(meetingProbability * 100)}%
         </div>
       )}
     </div>
@@ -893,14 +888,218 @@ export default function CalendarPage() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <style>{`
+        /* Dark theme for React Big Calendar */
+        .rbc-calendar {
+          background-color: #2d2d2d !important;
+          color: #ffffff !important;
+        }
+
+        /* Toolbar */
+        .rbc-toolbar {
+          background-color: #1a1a1a !important;
+          padding: 15px !important;
+          border-radius: 8px !important;
+          margin-bottom: 15px !important;
+        }
+
+        .rbc-toolbar button {
+          background-color: #ffd700 !important;
+          border: 1px solid #ffd700 !important;
+          color: #1a1a1a !important;
+          padding: 8px 20px !important;
+          border-radius: 5px !important;
+          cursor: pointer !important;
+          margin: 0 8px !important;
+          font-weight: 600 !important;
+        }
+
+        .rbc-toolbar button:hover {
+          background-color: #ffed4e !important;
+          border-color: #ffed4e !important;
+          color: #000000 !important;
+        }
+
+        .rbc-toolbar button.rbc-active {
+          background-color: #ffed4e !important;
+          border-color: #ffed4e !important;
+          color: #000000 !important;
+        }
+
+        /* Header */
+        .rbc-header {
+          background-color: #1a1a1a !important;
+          color: #b0b0b0 !important;
+          padding: 10px 5px !important;
+          border-bottom: 1px solid #404040 !important;
+          font-weight: 600 !important;
+        }
+
+        /* Month view */
+        .rbc-month-view {
+          background-color: #2d2d2d !important;
+          border: 1px solid #404040 !important;
+          border-radius: 8px !important;
+        }
+
+        .rbc-day-bg {
+          background-color: #2d2d2d !important;
+          border: 1px solid #404040 !important;
+        }
+
+        .rbc-day-bg:hover {
+          background-color: #353535 !important;
+        }
+
+        .rbc-off-range-bg {
+          background-color: #1a1a1a !important;
+        }
+
+        .rbc-today {
+          background-color: #2a3f5f !important;
+        }
+
+        .rbc-date-cell {
+          color: #b0b0b0 !important;
+        }
+
+        /* Week and Day views */
+        .rbc-time-view {
+          background-color: #2d2d2d !important;
+          border: 1px solid #404040 !important;
+          border-radius: 8px !important;
+        }
+
+        .rbc-time-header {
+          background-color: #1a1a1a !important;
+        }
+
+        .rbc-time-content {
+          background-color: #2d2d2d !important;
+          border-top: 1px solid #404040 !important;
+        }
+
+        .rbc-time-slot {
+          border-top: 1px solid #404040 !important;
+          color: #888888 !important;
+        }
+
+        .rbc-current-time-indicator {
+          background-color: #ffd700 !important;
+        }
+
+        /* Agenda/Events view */
+        .rbc-agenda-view {
+          background-color: #2d2d2d !important;
+          border: 1px solid #404040 !important;
+          border-radius: 8px !important;
+        }
+
+        .rbc-agenda-view table {
+          background-color: #2d2d2d !important;
+        }
+
+        .rbc-agenda-table tbody > tr > td {
+          border-top: 1px solid #404040 !important;
+          color: #ffffff !important;
+          padding: 10px !important;
+        }
+
+        .rbc-agenda-date-cell {
+          background-color: #1a1a1a !important;
+          color: #b0b0b0 !important;
+        }
+
+        .rbc-agenda-time-cell {
+          color: #888888 !important;
+        }
+
+        .rbc-agenda-event-cell {
+          color: #ffffff !important;
+        }
+
+        /* Events */
+        .rbc-event {
+          background-color: #ffd700 !important;
+          border: 2px solid #1a1a1a !important;
+          border-radius: 4px !important;
+          padding: 2px 5px !important;
+          color: #1a1a1a !important;
+          font-weight: 600 !important;
+          margin: 2px !important;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+        }
+
+        .rbc-event:hover {
+          background-color: #ffed4e !important;
+          color: #000000 !important;
+          border-color: #000000 !important;
+        }
+
+        .rbc-event.rbc-selected {
+          background-color: #ffb700 !important;
+          color: #000000 !important;
+          border-color: #000000 !important;
+        }
+
+        /* Event labels */
+        .rbc-event-label {
+          color: #1a1a1a !important;
+          font-weight: 600 !important;
+        }
+        .rbc-event-label::before {
+          content: "🕒 ";
+        }
+
+        /* Event content */
+        .rbc-event-content {
+          color: #1a1a1a !important;
+        }
+
+        /* Show more link */
+        .rbc-show-more {
+          background-color: transparent !important;
+          color: #ffd700 !important;
+          font-weight: 600 !important;
+        }
+
+        /* Selection - drag to create meeting */
+        .rbc-slot-selection {
+          background-color: rgba(74, 144, 226, 0.5) !important;
+          border: 2px dashed #4a90e2 !important;
+        }
+
+        /* All day row */
+        .rbc-allday-cell {
+          background-color: #1a1a1a !important;
+        }
+
+        .rbc-time-header-content {
+          border-left: 1px solid #404040 !important;
+        }
+
+        .rbc-day-slot .rbc-time-slot {
+          border-top: 1px solid #404040 !important;
+        }
+      `}</style>
+
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
-        <h2>My Calendar</h2>
+        <h2 style={{ color: "#ffffff" }}>My Calendar</h2>
         <button
-          className="btn btn-primary"
+          className="btn"
           onClick={() => {
             setSelectedSlot({ start: new Date(), end: new Date(Date.now() + 3600000) });
             setSelectedEvent(null);
             setShowModal(true);
+          }}
+          style={{
+            backgroundColor: "#ffd700",
+            color: "#1a1a1a",
+            border: "none",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            cursor: "pointer",
+            fontWeight: "600"
           }}
         >
           Create Meeting
@@ -908,7 +1107,7 @@ export default function CalendarPage() {
       </div>
 
       {error && (
-        <div className="alert alert-danger" role="alert">
+        <div className="alert alert-danger" role="alert" style={{ backgroundColor: "#4a1f1f", border: "1px solid #6b2929", color: "#ff8888" }}>
           {error}
         </div>
       )}
@@ -924,12 +1123,20 @@ export default function CalendarPage() {
         components={{
           event: EventComponent
         }}
+        messages={{
+          agenda: 'Events',
+          next: 'Next',
+          previous: 'Previous',
+          today: 'Today',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day'
+        }}
         style={{
           height: "650px",
-          backgroundColor: "white",
+          backgroundColor: "#2d2d2d",
           borderRadius: "8px",
           padding: "10px",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
         }}
       />
 

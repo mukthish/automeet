@@ -32,14 +32,14 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto" }}>
-      <h2>Login</h2>
+    <div style={{ maxWidth: "400px", margin: "50px auto", padding: "30px", backgroundColor: "#2d2d2d", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.3)" }}>
+      <h2 style={{ color: "#ffffff", textAlign: "center", marginBottom: "30px" }}>Login</h2>
 
       {error && (
         <div
           className="alert alert-danger"
           role="alert"
-          style={{ marginBottom: "20px" }}
+          style={{ marginBottom: "20px", backgroundColor: "#4a1f1f", border: "1px solid #6b2929", color: "#ff8888" }}
         >
           {error}
         </div>
@@ -55,6 +55,12 @@ export default function LoginPage() {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
             disabled={loading}
+            style={{
+              backgroundColor: "#1a1a1a",
+              border: "1px solid #404040",
+              color: "#ffffff",
+              padding: "10px"
+            }}
           />
         </div>
 
@@ -67,13 +73,27 @@ export default function LoginPage() {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
             disabled={loading}
+            style={{
+              backgroundColor: "#1a1a1a",
+              border: "1px solid #404040",
+              color: "#ffffff",
+              padding: "10px"
+            }}
           />
         </div>
 
+        <style>{`
+          .form-control::placeholder {
+            color: #888888 !important;
+            opacity: 1;
+          }
+        `}</style>
+
         <button
           type="submit"
-          className="btn btn-primary w-100"
+          className="btn w-100"
           disabled={loading}
+          style={{ backgroundColor: "#ffd700", color: "#1a1a1a", border: "none", padding: "10px", borderRadius: "5px", cursor: loading ? "not-allowed" : "pointer", fontWeight: "600" }}
         >
           {loading ? (
             <>
@@ -81,6 +101,7 @@ export default function LoginPage() {
                 className="spinner-border spinner-border-sm me-2"
                 role="status"
                 aria-hidden="true"
+                style={{ borderColor: "#1a1a1a", borderRightColor: "transparent" }}
               ></span>
               Logging in...
             </>
@@ -91,9 +112,9 @@ export default function LoginPage() {
       </form>
 
       <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <p>
+        <p style={{ color: "#b0b0b0" }}>
           Don't have an account?{" "}
-          <Link to="/signup" style={{ color: "#007bff" }}>
+          <Link to="/signup" style={{ color: "#ffd700", textDecoration: "none" }}>
             Sign up here
           </Link>
         </p>

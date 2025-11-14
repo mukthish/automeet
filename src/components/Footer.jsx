@@ -6,9 +6,10 @@ export default function Footer() {
       style={{
         textAlign: "center",
         padding: "10px",
-        background: "#f1f1f1",
+        background: "#0d0d0d",
         fontSize: "14px",
-        color: "#555",
+        color: "#b0b0b0",
+        borderTop: "2px solid #2d2d2d",
       }}
     >
       © {new Date().getFullYear()} AutoMeet — All rights reserved.

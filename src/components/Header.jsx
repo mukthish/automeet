@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 import { logout } from "../services/auth";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo3.png";
 
 export default function Header() {
   const { user, setUser } = useContext(AuthContext);
@@ -21,15 +21,16 @@ export default function Header() {
         justifyContent: "space-between",
         alignItems: "center",
         padding: "15px 20px",
-        background: "#007bff",
+        background: "#0d0d0d",
         color: "white",
+        borderBottom: "2px solid #2d2d2d",
       }}
     >
       <div
         onClick={() => navigate("/")}
         style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
       >
-        <img src={logo} alt="AutoMeet Logo" style={{ height: "40px" }} />
+        {/* <img src={logo} alt="AutoMeet Logo" style={{ height: "40px" }} /> */}
         <h2 style={{ marginLeft: "10px" }}>AutoMeet</h2>
       </div>
 
@@ -54,19 +55,28 @@ export default function Header() {
           </>
         ) : (
           <>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
               <span style={{ fontWeight: "bold" }}>{user.name}</span>
-              <span style={{ fontSize: "0.85em", opacity: 0.9 }}>{user.company}</span>
+              <span style={{ fontSize: "0.85em", opacity: 0.9 }}>
+                {user.company}
+              </span>
             </div>
             <button
               onClick={handleLogout}
               style={{
-                background: "transparent",
-                border: "1px solid white",
-                color: "white",
+                background: "#ffd700",
+                border: "none",
+                color: "#1a1a1a",
                 padding: "6px 12px",
                 borderRadius: "5px",
-                cursor: "pointer"
+                cursor: "pointer",
+                fontWeight: "600",
               }}
             >
               Sign Out

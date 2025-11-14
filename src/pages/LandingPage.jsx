@@ -5,19 +5,21 @@ export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ textAlign: "center", marginTop: "60px" }}>
-      <h1>Welcome to AutoMeet</h1>
-      <p>Plan, schedule, and organize meetings easily!</p>
+    <div style={{ textAlign: "center", marginTop: "60px", color: "#ffffff" }}>
+      <h1 style={{ color: "#ffffff" }}>Welcome to AutoMeet</h1>
+      <p style={{ color: "#b0b0b0", fontSize: "1.1em" }}>Plan, schedule, and organize meetings easily!</p>
 
       <button
         onClick={() => navigate("/login")}
         style={{
           margin: "10px",
           padding: "10px 20px",
-          background: "#007bff",
-          color: "white",
+          background: "#ffd700",
+          color: "#1a1a1a",
           border: "none",
           borderRadius: "5px",
+          cursor: "pointer",
+          fontWeight: "600",
         }}
       >
         Login
@@ -28,10 +30,12 @@ export default function LandingPage() {
         style={{
           margin: "10px",
           padding: "10px 20px",
-          border: "1px solid #007bff",
-          color: "#007bff",
+          border: "2px solid #ffd700",
+          color: "#ffd700",
           borderRadius: "5px",
           background: "transparent",
+          cursor: "pointer",
+          fontWeight: "600",
         }}
       >
         Signup

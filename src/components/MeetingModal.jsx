@@ -221,7 +221,7 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: "rgba(0,0,0,0.5)",
+          backgroundColor: "rgba(0,0,0,0.7)",
           zIndex: 1050,
           display: "flex",
           justifyContent: "center",
@@ -232,13 +232,14 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
         {/* Modal Content */}
         <div
           style={{
-            backgroundColor: "white",
+            backgroundColor: "#2d2d2d",
             borderRadius: "8px",
             maxWidth: "600px",
             width: "90%",
             maxHeight: "90vh",
             overflow: "auto",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.2)"
+            boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+            border: "1px solid #404040"
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -246,13 +247,14 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
           <div
             style={{
               padding: "20px",
-              borderBottom: "1px solid #dee2e6",
+              borderBottom: "1px solid #404040",
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center"
+              alignItems: "center",
+              backgroundColor: "#1a1a1a"
             }}
           >
-            <h5 style={{ margin: 0 }}>
+            <h5 style={{ margin: 0, color: "#ffffff" }}>
               {selectedEvent ? "Edit Meeting" : "Create Meeting"}
             </h5>
             <button
@@ -262,7 +264,7 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
                 border: "none",
                 fontSize: "24px",
                 cursor: "pointer",
-                color: "#6c757d"
+                color: "#b0b0b0"
               }}
             >
               &times;
@@ -272,6 +274,47 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
           {/* Modal Body */}
           <form onSubmit={handleSubmit}>
             <div style={{ padding: "20px" }}>
+              <style>{`
+                .form-control, .form-select {
+                  background-color: #1a1a1a !important;
+                  border: 1px solid #404040 !important;
+                  color: #ffffff !important;
+                  padding: 10px !important;
+                }
+                .form-control::placeholder {
+                  color: #888888 !important;
+                  opacity: 1;
+                }
+                .form-label {
+                  color: #b0b0b0 !important;
+                }
+                .form-select option {
+                  background-color: #1a1a1a !important;
+                  color: #ffffff !important;
+                }
+                .form-range {
+                  accent-color: #ffd700;
+                }
+                .form-check-input {
+                  background-color: #1a1a1a !important;
+                  border: 1px solid #404040 !important;
+                }
+                .form-check-input:checked {
+                  background-color: #ffd700 !important;
+                  border-color: #ffd700 !important;
+                }
+                .form-check-label {
+                  color: #ffffff !important;
+                }
+                .text-muted {
+                  color: #888888 !important;
+                }
+                .badge.bg-primary {
+                  background-color: #ffd700 !important;
+                  color: #1a1a1a !important;
+                }
+              `}</style>
+
               <div className="mb-3">
                 <label className="form-label">Meeting Title / Agenda *</label>
                 <input
@@ -365,11 +408,12 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
                 <label className="form-label">Participants *</label>
                 <div
                   style={{
-                    border: "1px solid #dee2e6",
+                    border: "1px solid #404040",
                     borderRadius: "4px",
                     padding: "10px",
                     maxHeight: "200px",
-                    overflowY: "auto"
+                    overflowY: "auto",
+                    backgroundColor: "#1a1a1a"
                   }}
                 >
                   {allUsers.length === 0 ? (
@@ -414,19 +458,28 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
             <div
               style={{
                 padding: "20px",
-                borderTop: "1px solid #dee2e6",
+                borderTop: "1px solid #404040",
                 display: "flex",
                 justifyContent: "space-between",
-                gap: "10px"
+                gap: "10px",
+                backgroundColor: "#1a1a1a"
               }}
             >
               <div>
                 {selectedEvent && (
                   <button
                     type="button"
-                    className="btn btn-danger"
                     onClick={handleDelete}
                     disabled={loading}
+                    style={{
+                      backgroundColor: "#8b0000",
+                      color: "#ffffff",
+                      border: "none",
+                      padding: "10px 20px",
+                      borderRadius: "5px",
+                      cursor: loading ? "not-allowed" : "pointer",
+                      fontWeight: "600"
+                    }}
                   >
                     {loading ? "Deleting..." : "Delete"}
                   </button>
@@ -435,16 +488,32 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
               <div style={{ display: "flex", gap: "10px" }}>
                 <button
                   type="button"
-                  className="btn btn-secondary"
                   onClick={onClose}
                   disabled={loading}
+                  style={{
+                    backgroundColor: "transparent",
+                    color: "#b0b0b0",
+                    border: "1px solid #404040",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    fontWeight: "600"
+                  }}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="btn btn-primary"
                   disabled={loading}
+                  style={{
+                    backgroundColor: "#ffd700",
+                    color: "#1a1a1a",
+                    border: "none",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    cursor: loading ? "not-allowed" : "pointer",
+                    fontWeight: "600"
+                  }}
                 >
                   {loading ? (
                     <>
@@ -452,6 +521,7 @@ export default function MeetingModal({ show, onClose, onSave, onDelete, selected
                         className="spinner-border spinner-border-sm me-2"
                         role="status"
                         aria-hidden="true"
+                        style={{ borderColor: "#1a1a1a", borderRightColor: "transparent" }}
                       ></span>
                       Saving...
                     </>

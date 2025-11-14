@@ -62,14 +62,14 @@ export default function SignupPage() {
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "50px auto" }}>
-      <h2>Sign Up</h2>
+    <div style={{ maxWidth: "500px", margin: "50px auto", padding: "30px", backgroundColor: "#2d2d2d", borderRadius: "10px", boxShadow: "0 4px 6px rgba(0,0,0,0.3)" }}>
+      <h2 style={{ color: "#ffffff", textAlign: "center", marginBottom: "30px" }}>Sign Up</h2>
 
       {error && (
         <div
           className="alert alert-danger"
           role="alert"
-          style={{ marginBottom: "20px" }}
+          style={{ marginBottom: "20px", backgroundColor: "#4a1f1f", border: "1px solid #6b2929", color: "#ff8888" }}
         >
           {error}
         </div>
@@ -77,7 +77,7 @@ export default function SignupPage() {
 
       <form onSubmit={handleSignup}>
         <div className="mb-3">
-          <label className="form-label">Full Name</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Full Name</label>
           <input
             type="text"
             className="form-control"
@@ -87,11 +87,12 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="John Doe"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Email</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Email</label>
           <input
             type="email"
             className="form-control"
@@ -101,11 +102,12 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="john@example.com"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Company</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Company</label>
           <input
             type="text"
             className="form-control"
@@ -115,11 +117,12 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="TechCorp"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Role</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Role</label>
           <input
             type="text"
             className="form-control"
@@ -129,11 +132,12 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="Software Engineer"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Password</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Password</label>
           <input
             type="password"
             className="form-control"
@@ -143,11 +147,12 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="At least 6 characters"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Confirm Password</label>
+          <label className="form-label" style={{ color: "#b0b0b0" }}>Confirm Password</label>
           <input
             type="password"
             className="form-control"
@@ -157,13 +162,22 @@ export default function SignupPage() {
             required
             disabled={loading}
             placeholder="Re-enter your password"
+            style={{ backgroundColor: "#1a1a1a", border: "1px solid #404040", color: "#ffffff", padding: "10px" }}
           />
         </div>
 
+        <style>{`
+          .form-control::placeholder {
+            color: #888888 !important;
+            opacity: 1;
+          }
+        `}</style>
+
         <button
           type="submit"
-          className="btn btn-primary w-100"
+          className="btn w-100"
           disabled={loading}
+          style={{ backgroundColor: "#ffd700", color: "#1a1a1a", border: "none", padding: "10px", borderRadius: "5px", cursor: loading ? "not-allowed" : "pointer", fontWeight: "600" }}
         >
           {loading ? (
             <>
@@ -171,6 +185,7 @@ export default function SignupPage() {
                 className="spinner-border spinner-border-sm me-2"
                 role="status"
                 aria-hidden="true"
+                style={{ borderColor: "#1a1a1a", borderRightColor: "transparent" }}
               ></span>
               Creating account...
             </>
@@ -181,9 +196,9 @@ export default function SignupPage() {
       </form>
 
       <div style={{ marginTop: "20px", textAlign: "center" }}>
-        <p>
+        <p style={{ color: "#b0b0b0" }}>
           Already have an account?{" "}
-          <Link to="/login" style={{ color: "#007bff" }}>
+          <Link to="/login" style={{ color: "#ffd700", textDecoration: "none" }}>
             Login here
           </Link>
         </p>

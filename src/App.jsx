@@ -70,11 +70,12 @@ export default function App() {
             display: "flex",
             flexDirection: "column",
             minHeight: "100vh",
+            backgroundColor: "#1a1a1a",
           }}
         >
           <Header />
 
-          <main style={{ flex: 1, padding: "20px" }}>
+          <main style={{ flex: 1, padding: "20px", backgroundColor: "#1a1a1a" }}>
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
