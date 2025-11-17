@@ -39,6 +39,10 @@ export default function App() {
         // But only if we don't already have a user (to avoid refetching during signup)
         if (!user) {
           try {
+            // Add a delay to allow signup/login to complete backend profile creation
+            // This prevents race condition where Firebase auth completes before backend signup
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
             const result = await getCurrentUser();
             if (result.success) {
               setUser(result.user);
